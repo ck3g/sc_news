@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="C300335_starcraftmd_dev" Class="NewsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=mssql1001.hostexcellence.com;Initial Catalog=C300335_starcraftmd_dev;Persist Security Info=True;User ID=C300335_starcraftmd" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="StarcraftMDexpress" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.NewsVotes" Member="NewsVotes">
+    <Type Name="NewsVote">
+      <Column Name="news_id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="News_NewsVote" Member="News" ThisKey="news_id" OtherKey="id" Type="News" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_NewsVote" Member="User" ThisKey="user_id" OtherKey="UserId" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="News">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="body" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="author_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="modified_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ip_address" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="voted_for" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="voted_against" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="views" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="state" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="News_NewsVote" Member="NewsVotes" ThisKey="id" OtherKey="news_id" Type="NewsVote" />
+      <Association Name="News_Comment" Member="Comments" ThisKey="id" OtherKey="parent_id" Type="Comment" />
+      <Association Name="News_NewsInTag" Member="NewsInTags" ThisKey="id" OtherKey="news_id" Type="NewsInTags" />
+      <Association Name="User_News" Member="User" ThisKey="author_id" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comments" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="parent_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="author_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="body" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ip_address" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="voted_for" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="voted_against" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="News_Comment" Member="News" ThisKey="parent_id" OtherKey="id" Type="News" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_Comment" Member="User" ThisKey="author_id" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Users" Member="Users">
+    <Type Name="User">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_NewsVote" Member="NewsVotes" ThisKey="UserId" OtherKey="user_id" Type="NewsVote" />
+      <Association Name="User_News" Member="News" ThisKey="UserId" OtherKey="author_id" Type="News" />
+      <Association Name="User_Comment" Member="Comments" ThisKey="UserId" OtherKey="author_id" Type="Comment" />
+      <Association Name="User_UsersMembership" Member="UsersMembership" ThisKey="UserId" OtherKey="UserId" Type="UsersMembership" Cardinality="One" />
+      <Association Name="User_UsersRole" Member="UsersRoles" ThisKey="UserId" OtherKey="UserId" Type="UsersRole" />
+      <Association Name="User_UsersProfile" Member="UsersProfile" ThisKey="UserId" OtherKey="user_id" Type="UsersProfile" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Membership" Member="UsersMemberships">
+    <Type Name="UsersMembership">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MobilePIN" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="LoweredEmail" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordQuestion" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordAnswer" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsLockedOut" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastPasswordChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLockoutDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAttemptCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAnswerAttemptCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAnswerAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="User_UsersMembership" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_UsersInRoles" Member="UsersRoles">
+    <Type Name="UsersRole">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="User_UsersRole" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+      <Association Name="Role_UsersRole" Member="Role" ThisKey="RoleId" OtherKey="RoleId" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredRoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Association Name="Role_UsersRole" Member="UsersRoles" ThisKey="RoleId" OtherKey="RoleId" Type="UsersRole" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.UsersProfiles" Member="UsersProfiles">
+    <Type Name="UsersProfile">
+      <Column Name="user_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="country_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="race" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bnet_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bnet_server" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="league" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="experience" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="first_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="last_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="details" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="avatar_style" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="achievements" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="points" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="wins" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="loses" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="win_rate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="profile_url" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="synchronized_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_UsersProfile" Member="User" ThisKey="user_id" OtherKey="UserId" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.NewsInTags" Member="NewsInTags">
+    <Type Name="NewsInTags">
+      <Column Name="tag_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="news_id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Tag_NewsInTag" Member="Tag" ThisKey="tag_id" OtherKey="id" Type="Tag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="News_NewsInTag" Member="News" ThisKey="news_id" OtherKey="id" Type="News" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.Tags" Member="Tags">
+    <Type Name="Tag">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Tag_NewsInTag" Member="NewsInTags" ThisKey="id" OtherKey="tag_id" Type="NewsInTags" />
+    </Type>
+  </Table>
+</Database>

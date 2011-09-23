@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="C300335_starcraftmd_dev" Class="VoteDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=mssql1001.hostexcellence.com;Initial Catalog=C300335_starcraftmd_dev;Persist Security Info=True;User ID=C300335_starcraftmd" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="C300335_starcraftmd_devConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="C300335_starcraftmd.VoteAnswers" Member="VoteAnswers">
+    <Type Name="VoteAnswer">
+      <Column Name="order_n" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="vote_id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="answer_text" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Association Name="Vote_VoteAnswer" Member="Vote" ThisKey="vote_id" OtherKey="id" Type="Vote" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.VoteByUsers" Member="VoteByUsers">
+    <Type Name="VoteByUser">
+      <Column Name="user_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="vote_id" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="answer_n" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="aspnet_User_VoteByUser" Member="VoteUser" ThisKey="user_id" OtherKey="UserId" Type="VoteUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.Votes" Member="Votes">
+    <Type Name="Vote">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="question_name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="question_text" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="is_pinned" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="created_by" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Vote_VoteAnswer" Member="VoteAnswers" ThisKey="id" OtherKey="vote_id" Type="VoteAnswer" />
+      <Association Name="aspnet_User_Vote" Member="VoteUser" ThisKey="created_by" OtherKey="UserId" Type="VoteUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Users" Member="VoteUsers">
+    <Type Name="VoteUser">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_VoteByUser" Member="VoteByUsers" ThisKey="UserId" OtherKey="user_id" Type="VoteByUser" />
+      <Association Name="aspnet_User_Vote" Member="Votes" ThisKey="UserId" OtherKey="created_by" Type="Vote" />
+    </Type>
+  </Table>
+</Database>

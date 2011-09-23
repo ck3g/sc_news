@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Gallery">
+  <DataContextMoniker Name="/GalleryDataContext" />
+  <nestedChildShapes>
+    <classShape Id="b662dbf8-48dd-47e9-be50-5725750e9211" absoluteBounds="0.75, 1, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/GalleryDataContext/Gallery" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eca1b7dd-5f26-4816-8345-4cc8ccb4c967" absoluteBounds="0.76499999999999968, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d5a75077-6f6a-44be-90d8-eb4a65cb6dca" absoluteBounds="4.125, 1, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/GalleryDataContext/Users" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fca55b24-f0a4-4454-83ac-838b3e52a44b" absoluteBounds="4.14, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.125 : 1.88544840494792); (2.75 : 1.88544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/GalleryDataContext/Users/aspnet_User_Gallery" />
+      <nodes>
+        <classShapeMoniker Id="d5a75077-6f6a-44be-90d8-eb4a65cb6dca" />
+        <classShapeMoniker Id="b662dbf8-48dd-47e9-be50-5725750e9211" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

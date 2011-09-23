@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head runat="server">
+    <link href="/Content/main.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    
+    <asp:ContentPlaceHolder ID="_headContent" runat="server" />
+</head>
+
+<body>
+<% 
+    if (Page.User.Identity.IsAuthenticated)
+        Html.RenderAction( "UpdateActivity", "User" ); 
+%>
+<% Html.RenderPartial( "PageHeader" ); %>
+
+<table cellspacing="6" cellpadding="0" border="0" width="100%" class="osn">
+<tbody>
+    <tr>
+	    <td class="osn_left_block width173">
+            <% Html.RenderPartial("LogOnUserControl"); %>
+            <% Html.RenderPartial( "PanelNavigation" ); %>	
+	        <img src="/Content/img/px.gif" width="173" height="1" alt="" />	
+	    </td>
+    	<td class="osn_block">
+            <div id="main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+            <div id="footer">
+            </div>
+            </div>
+        </td>
+    <td class="osn_right_block width255">
+
+    <% Html.RenderPartial( "PanelBanners" ); %>
+    <% Html.RenderAction( "Index", "Chat" ); %>
+    <% Html.RenderAction( "ShowOnlineUsers", "User" ); %>
+    <% Html.RenderAction( "Current", "Vote" ); %>
+    <% Html.RenderPartial( "PanelLatestComments" ); %>
+
+	<img src="/Content/img/px.gif" width="255" height="1" alt="" />
+	</td>
+</tr>
+<tr>
+	<td colspan="3" class="tags">
+	<% Html.RenderPartial( "PanelTags" ); %>
+	</td>
+</tr>
+<tr>
+	<td colspan="3" class="friends">
+    <% Html.RenderPartial( "PanelFriends" ); %>
+	</td>
+</tr>
+</tbody>
+</table>
+<% Html.RenderPartial( "PageFooter" ); %>
+
+<div><img src="/Content/img/px.gif" width="1010" height="10" alt="" /></div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1572941-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>

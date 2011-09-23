@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="C300335_starcraftmd_dev" Class="ContentDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=mssql1001.hostexcellence.com;Initial Catalog=C300335_starcraftmd_dev;Persist Security Info=True;User ID=C300335_starcraftmd" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="C300335_starcraftmd_devConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="C300335_starcraftmd.Content" Member="Contents">
+    <Type Name="Content">
+      <Column Name="type_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="text" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="ContentType_Content" Member="ContentType" ThisKey="type_id" OtherKey="id" Type="ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="C300335_starcraftmd.ContentType" Member="ContentTypes">
+    <Type Name="ContentType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ContentType_Content" Member="Content" ThisKey="id" OtherKey="type_id" Type="Content" Cardinality="One" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Replays">
+  <DataContextMoniker Name="/ReplaysDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e649b62b-5a73-4314-a185-f31511aeb6c2" absoluteBounds="3.5, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ReplaysDataContext/Replay" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9350c5ec-a307-4997-8ed7-28bc6a8feb27" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="66422c06-263e-47e5-b8a2-5e7e5f5c2891" absoluteBounds="0.75, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ReplaysDataContext/ReplayUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e68f5a18-29dc-45b5-9b81-0cf086bac001" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.95274983723958); (3.5 : 1.95274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ReplaysDataContext/ReplayUser/aspnet_User_Replay" />
+      <nodes>
+        <classShapeMoniker Id="66422c06-263e-47e5-b8a2-5e7e5f5c2891" />
+        <classShapeMoniker Id="e649b62b-5a73-4314-a185-f31511aeb6c2" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Chat">
+  <DataContextMoniker Name="/ChatDataContext" />
+  <nestedChildShapes>
+    <classShape Id="c85ea8f9-c79d-4443-b8c7-d775c0e882b9" absoluteBounds="3.5, 1.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/ChatDataContext/ChatMessage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a09ad496-55ca-4a88-8ce8-4e26223da908" absoluteBounds="3.515, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="eed69d51-eed0-4ca3-8142-972180d1107d" absoluteBounds="0.5, 1.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ChatDataContext/ChatUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cc2f3c99-a0f0-4e4c-be9d-8886d049c176" absoluteBounds="0.51499999999999968, 1.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 2.26044840494792); (3.5 : 2.26044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ChatDataContext/ChatUser/aspnet_User_ChatMessage" />
+      <nodes>
+        <classShapeMoniker Id="eed69d51-eed0-4ca3-8142-972180d1107d" />
+        <classShapeMoniker Id="c85ea8f9-c79d-4443-b8c7-d775c0e882b9" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
